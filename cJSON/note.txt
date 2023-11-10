@@ -1,0 +1,9 @@
+如果/in 中有连个testcase文件，AFL会把每个文件当成一次输入，而不是两个文件当成一个输入（如果代fuzz的程序需要两个输入，只要需要把两个输入合并到一个testcase文件当中）
+比如：
+    如果一个程序需要两个输入，其中一个输入是json字符串，另一个是普通字符串，则testcase文件中的内容应该是：
+    {"name": "John", "age": 30, "city": "New York", "hobbies": ["reading", "hiking", "swimming"], "address": {"street": "123 Main St", "zip": "10001"}}
+    name
+
+命令: 
+/Users/shuangxiangkan/Fuzz/AFLplusplus/afl-clang-fast++ -g -o cJSON_GetObjectItem_harness3 cJSON_GetObjectItem_harness3.cpp cJSON.c
+/Users/shuangxiangkan/Fuzz/AFLplusplus/afl-fuzz -i ./in/ -o ./out -- ./cJSON_GetObjectItem_harness

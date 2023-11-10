@@ -1,0 +1,3 @@
+/Users/shuangxiangkan/Fuzz/AFLplusplus/afl-clang-fast++ -o cJSON_GetObjectItem_harness cJSON_GetObjectItem_harness.cpp cJSON.c
+sudo /Users/shuangxiangkan/Fuzz/AFLplusplus/afl-system-config 
+/Users/shuangxiangkan/Fuzz/AFLplusplus/afl-fuzz -i ./in/ -o ./out ./cJSON_GetObjectItem_harness @@ ./in/example.json ./in/testcase

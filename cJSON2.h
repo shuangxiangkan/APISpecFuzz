@@ -1,0 +1,1 @@
+char* cJSON_swap(char a, char *b);
