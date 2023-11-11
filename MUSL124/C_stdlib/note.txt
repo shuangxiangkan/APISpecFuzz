@@ -1,0 +1,2 @@
+需要手写harness的函数:
+类型：wchar_t

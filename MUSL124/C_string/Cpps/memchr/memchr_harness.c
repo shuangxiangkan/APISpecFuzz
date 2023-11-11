@@ -13,7 +13,7 @@ void SpecFileGeneration(const char *specification, const char *fileName, const c
 	if (file) {
 		fprintf(file, "%s\n", funSignature);
 		fprintf(file, "{\n");
-		fprintf(file, "%s\n", specification);
+		fprintf(file, "	%s\n", specification);
 		fprintf(file, "}\n");
 		fclose(file);
 	}
@@ -42,7 +42,7 @@ int main() {
 		
 		if(result == arg0)
 		{
-			SpecFileGeneration("return arg0", "memchr_0.cpp", funSignature);
+			SpecFileGeneration("return arg0;", "memchr_0.cpp", funSignature);
 		}
 	}
 

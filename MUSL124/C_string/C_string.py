@@ -2,19 +2,41 @@
 import os
 import string
 import random
+import subprocess
 
 from pycparser import parse_file, c_ast
 # c_ast.py 文件下包含了抽象语法树的节点类
 from pycparser.c_ast import *
 import copy
 
-filename = '/Users/shuangxiangkan/Code/PycharmProject/pythonProject/MUSL124/C_string/string.h'
-# filename = 'cJSON2.h'
+# 获取当前脚本所在的目录
+current_directory = os.path.dirname(os.path.abspath(__file__))
+root_directory = os.path.abspath(os.path.join(current_directory, os.pardir, os.pardir))
 
+print("current_directory:", current_directory)
 
-# ast = parse_file(filename, use_cpp= False)
-ast = parse_file(filename, use_cpp=True, cpp_path='clang',
-                 cpp_args=['-E', r'-I/Users/shuangxiangkan/Fuzz/pycparser/utils/fake_libc_include'])
+# 创建文件夹
+string_header_path = "string.h"  # 使用相对路径
+
+# 构建完整的文件路径
+filename = os.path.join(current_directory, string_header_path)
+
+# 假设 fake_lib_path 是要添加的路径
+fake_lib = "pycparser/utils/fake_libc_include"
+
+# 使用 os.path.join 将 fake_lib_path 转换为绝对路径
+fake_lib_path = os.path.join(root_directory, fake_lib)
+
+print("fake_lib_path:", fake_lib_path)
+print("filename:", filename)
+
+# 在 cpp_args 中添加 fake_lib_path
+cpp_args = ['-E', f'-I{fake_lib_path}']
+
+# 调用 parse_file 时将 cpp_args 传递给参数
+ast = parse_file(filename, use_cpp=True, cpp_path='clang', cpp_args=cpp_args)
+
+# afl_clang_fast_path = "/home/kansx/Fuzz/AFLplusplus/afl-clang-fast"
 
 default_headers_code = ('#include <stdio.h>\n'
                         '#include <string.h>\n\n')
@@ -83,7 +105,7 @@ def SpecFileGenFunctionCode():
     code += "\n\tif (file) {"
     code += "\n\t\tfprintf(file, \"%s\\n\", funSignature);"
     code += "\n\t\tfprintf(file, \"{\\n\");"
-    code += "\n\t\tfprintf(file, \"%s\\n\", specification);"
+    code += "\n\t\tfprintf(file, \"\t%s\\n\", specification);"
     code += "\n\t\tfprintf(file, \"}\\n\");"
     code += "\n\t\tfclose(file);"
     code += "\n\t}"
@@ -116,8 +138,7 @@ class TypedefVisitor(c_ast.NodeVisitor):
 
                 self.typedef_map[node.name] = {"isStruct": isStruct, "type": node.type.type}
                 # print(f"typedef name: {node.name}, value name: {value_name}, isStruct: {isStruct}, type: {node.type.type}")
-                print(
-                    f"typedef name: {node.name}, value name: {value_name}, isStruct: {isStruct}")
+                # print(f"typedef name: {node.name}, value name: {value_name}, isStruct: {isStruct}")
 
 
 struct_map = {}
@@ -212,7 +233,7 @@ def createCppsFolder():
     # 创建文件夹
     cpp_folder = "Cpps"
     cpp_folder_path = os.path.join(current_directory, cpp_folder)
-    print("cpp_folder_path:", cpp_folder_path)
+    # print("cpp_folder_path:", cpp_folder_path)
     if not os.path.exists(cpp_folder_path):
         os.mkdir(cpp_folder_path)
 
@@ -324,13 +345,8 @@ class FuncDeclVisitor(NodeVisitor):
         cpp_folder_path = createCppsFolder()
 
         funcNameInfo = self.isFuncPointer(node.type, 0)
-        # Choose the function name starts with "cJSON" and is not "cJSON_InitHooks"
-        # if funcNameInfo[0].startswith("cJSON_") and funcNameInfo[0] != "cJSON_InitHooks":
-        # print("node.type:", node.type)
-        print(" ----------------------------------------- ")
+        print("function name: %s" % funcNameInfo[0])
         points_to_path = {}
-        # if funcNameInfo[0] == "cJSON_Parse":
-        #     print(f"function name: {funcNameInfo[0]} ")
         qual = ""
         if (isinstance(node.type, PtrDecl) and node.type.type.quals.__len__() > 0):
             qual = node.type.type.quals[0]
@@ -423,48 +439,45 @@ class FuncDeclVisitor(NodeVisitor):
         if (qual == "const"):
             cpp_code += f"\n\t\t{qual} {funcNameInfo[1]}"
             fun_signature_code += f"{qual} {funcNameInfo[1]}"
-            print(f"{qual} {funcNameInfo[1]}", end="")
+            # print(f"{qual} {funcNameInfo[1]}", end="")
         else:
             cpp_code += f"\n\t\t{funcNameInfo[1]}"
             fun_signature_code += f"{funcNameInfo[1]}"
-            print(f"{funcNameInfo[1]}", end="")
+            # print(f"{funcNameInfo[1]}", end="")
         for i in range(funcNameInfo[2]):
             cpp_code += "*"
             fun_signature_code += "*"
-            print("*", end="")
+            # print("*", end="")
 
         # fun_signature_code = ""
         cpp_code += f" result = {funcNameInfo[0]}("
         fun_signature_code += f" {funcNameInfo[0]}("
-        print(f" result = {funcNameInfo[0]}(", end="")
+        # print(f" result = {funcNameInfo[0]}(", end="")
         for i, param_decl in enumerate(node.args.params):
-            # print("len(node.args.params):", len(node.args.params))
             argInfo = self.isArgPointer(param_decl.type, 0)
             if len(node.args.params) == 1 and param_decl.name is None:
-                cpp_code += "arg);\n"
+                cpp_code += f"{getParamName(param_decl) + str(i)});\n"
                 fun_signature_code += "arg)"
-                print(");\n")
+                # print(");\n")
             elif i < len(node.args.params) - 1:
                 cpp_code += f"{getParamName(param_decl) + str(i)}, "
                 fun_signature_code += f"{argInfo[0]}"
                 if argInfo[1] > 0:
                     for i in range(argInfo[1]):
                         fun_signature_code += "*"
-                        print("*", end="")
+                        # print("*", end="")
                 fun_signature_code += f" {getParamName(param_decl) + str(i)}, "
-                print(f"{param_decl.name}, ", end="")
+                # print(f"{param_decl.name}, ", end="")
             else:
                 cpp_code += f"{getParamName(param_decl) + str(i)});\n"
                 fun_signature_code += f"{argInfo[0]}"
                 if argInfo[1] > 0:
                     for i in range(argInfo[1]):
                         fun_signature_code += "*"
-                        print("*", end="")
+                        # print("*", end="")
                 fun_signature_code += f" {getParamName(param_decl) + str(i)})"
-                print(f"{param_decl.name});\n")
+                # print(f"{param_decl.name});\n")
 
-        print(cpp_code)
-        # cpp_code += f"\n\t\tconst char *fileName = \"{funcNameInfo[0]}.c\";\n"
         cpp_code += f"\t\tconst char *funSignature = \"{fun_signature_code}\";\n\t\t"
         ######################## function call  ########################
 
@@ -482,9 +495,9 @@ class FuncDeclVisitor(NodeVisitor):
             pt = Points_to_Information(funcNameInfo[2], name_path, type_path)
             points_to_path["result"].append(pt)
 
-        print("return value: ")
-        for pt in points_to_path["result"]:
-            print(f"\t pointer_level: {pt.pointer_level}, name_path: {pt.name_path}, type_path: {pt.type_path}")
+        # print("return value: ")
+        # for pt in points_to_path["result"]:
+        #     print(f"\t pointer_level: {pt.pointer_level}, name_path: {pt.name_path}, type_path: {pt.type_path}")
 
         for i, param_decl in enumerate(node.args.params):
             argInfo = self.isArgPointer(param_decl.type, 0)
@@ -501,9 +514,9 @@ class FuncDeclVisitor(NodeVisitor):
                 pt = Points_to_Information(argInfo[1], name_path, type_path)
                 points_to_path[getParamName(param_decl) + str(i)].append(pt)
 
-            print(f"parameter {i + 1}: ")
-            for i, pt in enumerate(points_to_path[getParamName(param_decl) + str(i)]):
-                print(f"\tpointer_level: {pt.pointer_level}, name_path: {pt.name_path}, type_path: {pt.type_path}")
+            # print(f"parameter {i + 1}: ")
+            # for i, pt in enumerate(points_to_path[getParamName(param_decl) + str(i)]):
+            #     print(f"\tpointer_level: {pt.pointer_level}, name_path: {pt.name_path}, type_path: {pt.type_path}")
 
         # Create a set to record the processed key pairs
         k = 0;
@@ -520,9 +533,9 @@ class FuncDeclVisitor(NodeVisitor):
                                 cpp_code += if_code[0]
                                 cpp_code += "\t\t{"
                                 if if_code[1] == "result":
-                                    cpp_code += f"\n\t\t\tSpecFileGeneration(\"return {if_code[2]}\", \"{funcNameInfo[0]}_{k}.cpp\", funSignature);"
+                                    cpp_code += f"\n\t\t\tSpecFileGeneration(\"return {if_code[2]};\", \"{funcNameInfo[0]}_{k}.cpp\", funSignature);"
                                 else:
-                                    cpp_code += f"\n\t\t\tSpecFileGeneration(\"{if_code[1]} = {if_code[2]}\", \"{funcNameInfo[0]}_{k}.cpp\", funSignature);"
+                                    cpp_code += f"\n\t\t\tSpecFileGeneration(\"{if_code[1]} = {if_code[2]};\", \"{funcNameInfo[0]}_{k}.cpp\", funSignature);"
                                 cpp_code += "\n\t\t}"
                                 k += 1
 
@@ -531,9 +544,6 @@ class FuncDeclVisitor(NodeVisitor):
         cpp_code += main_end_coce
         with open(cpp_file_name, "w") as cpp_file:
             cpp_file.write(cpp_code + "\n")
-
-    # def visit_FuncDecl(self, node):
-    #     print(" --- 函数type:", node.type)
 
 
 # TypedefVisitor().visit(ast)

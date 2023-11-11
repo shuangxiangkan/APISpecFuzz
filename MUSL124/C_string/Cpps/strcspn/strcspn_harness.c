@@ -13,7 +13,7 @@ void SpecFileGeneration(const char *specification, const char *fileName, const c
 	if (file) {
 		fprintf(file, "%s\n", funSignature);
 		fprintf(file, "{\n");
-		fprintf(file, "%s\n", specification);
+		fprintf(file, "	%s\n", specification);
 		fprintf(file, "}\n");
 		fclose(file);
 	}
@@ -37,7 +37,7 @@ int main() {
 		
 		if(arg0 == arg1)
 		{
-			SpecFileGeneration("arg0 = arg1", "strcspn_0.cpp", funSignature);
+			SpecFileGeneration("arg0 = arg1;", "strcspn_0.cpp", funSignature);
 		}
 	}
 

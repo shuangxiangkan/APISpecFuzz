@@ -1,0 +1,6 @@
+一些函数的specification不太对，比如strcmp，这个是因为harness的原因，
+char *arg0 = strtok(buf, "\n");
+char *arg1 = strtok(NULL, "\n");
+和
+char arg0[] = strtok(buf, "\n");
+char *arg1[] = strtok(NULL, "\n");

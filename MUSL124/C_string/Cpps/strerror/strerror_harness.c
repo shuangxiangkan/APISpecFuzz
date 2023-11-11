@@ -13,7 +13,7 @@ void SpecFileGeneration(const char *specification, const char *fileName, const c
 	if (file) {
 		fprintf(file, "%s\n", funSignature);
 		fprintf(file, "{\n");
-		fprintf(file, "%s\n", specification);
+		fprintf(file, "	%s\n", specification);
 		fprintf(file, "}\n");
 		fclose(file);
 	}
@@ -33,7 +33,7 @@ int main() {
 		sscanf(strtok(NULL, "\n"), "%d", &arg0);
 
 	
-		char* result = strerror(arg);
+		char* result = strerror(arg0);
 		const char *funSignature = "char* strerror(arg)";
 		
 	}

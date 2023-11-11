@@ -13,7 +13,7 @@ void SpecFileGeneration(const char *specification, const char *fileName, const c
 	if (file) {
 		fprintf(file, "%s\n", funSignature);
 		fprintf(file, "{\n");
-		fprintf(file, "%s\n", specification);
+		fprintf(file, "	%s\n", specification);
 		fprintf(file, "}\n");
 		fclose(file);
 	}
@@ -31,7 +31,7 @@ int main() {
 
 		char *arg0 = strtok(buf, "\n");
 	
-		size_t result = strlen(arg);
+		size_t result = strlen(arg0);
 		const char *funSignature = "size_t strlen(arg)";
 		
 	}
