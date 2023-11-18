@@ -1,0 +1,7 @@
+# environment variables:
+AFL_CUSTOM_INFO_PROGRAM=/home/kansx/Fuzz/APISpecFuzz/MUSL124/C_crypt/Cpps/crypt_r/crypt_r_harness
+AFL_CUSTOM_INFO_PROGRAM_ARGV=
+AFL_CUSTOM_INFO_OUT=/home/kansx/Fuzz/APISpecFuzz/MUSL124/C_crypt/Cpps/crypt_r/in/default
+AFL_DEBUG_CHILD=1
+# command line:
+'/home/kansx/Fuzz/AFLplusplus/afl-fuzz' '-i' '/home/kansx/Fuzz/APISpecFuzz/MUSL124/C_crypt/Cpps/crypt_r/in' '-o' '/home/kansx/Fuzz/APISpecFuzz/MUSL124/C_crypt/Cpps/crypt_r/in' '/home/kansx/Fuzz/APISpecFuzz/MUSL124/C_crypt/Cpps/crypt_r/crypt_r_harness'

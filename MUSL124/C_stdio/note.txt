@@ -1,0 +1,8 @@
+需要手写harness的函数:
+__isoc_va_list
+可变参数 ...
+
+
+可能存在的spec:
+getdelim
+getline

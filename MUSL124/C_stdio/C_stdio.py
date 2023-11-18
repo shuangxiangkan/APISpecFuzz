@@ -1,5 +1,6 @@
 # parser_file 用于处理c语言文件
 import os
+import shutil
 import string
 import random
 import subprocess
@@ -16,7 +17,7 @@ root_directory = os.path.abspath(os.path.join(current_directory, os.pardir, os.p
 print("current_directory:", current_directory)
 
 # 创建文件夹
-string_header_path = "string.h"  # 使用相对路径
+string_header_path = "stdio.h"  # 使用相对路径
 
 # 构建完整的文件路径
 filename = os.path.join(current_directory, string_header_path)
@@ -55,8 +56,13 @@ afl_loop_end_code = '\n\t}\n'
 
 def getIFCode(pt1, pt2):
     if_code = ""
-    # if pt1.type_path[-1] != "void" and pt2.type_path[-1] != "void" and pt1.type_path[-1] == pt2.type_path[-1]:
-    if pt1.type_path[-1] == pt2.type_path[-1]:
+    spec_body = ""
+    # pt1 and pt2 have the same type and are both pointers
+    # pt1 is void pointer and pt2 is not void pointer
+    # pt2 is void pointer and pt1 is not void pointer
+    if pt1.type_path[-1] == pt2.type_path[-1] or \
+            (pt1.type_path[-1] == "void" and pt2.type_path[-1] != "void" and pt1.pointer_level !=0 and pt2.pointer_level != 0) or \
+            (pt1.type_path[-1] != "void" and pt2.type_path[-1] == "void" and pt1.pointer_level !=0 and pt2.pointer_level != 0):
         lvalue_list = []
         rvalue_list = []
         lvalue_path_list = []
@@ -67,27 +73,40 @@ def getIFCode(pt1, pt2):
             lvalue = " -> ".join(lvalue_list)
             lvalue_path_list.append(lvalue)
 
+        # print("lvalue_path_list: ", lvalue_path_list)
+
         for name in pt2.name_path:
             rvalue_list.append(name)
             rvalue = " -> ".join(rvalue_list)
             rvalue_path_list.append(rvalue)
 
+        # print("rvalue_path_list: ", rvalue_path_list)
+
+        if ((pt1.type_path[-1] == "void" and pt1.pointer_level == 0)
+                or (pt2.type_path[-1] == "void" and pt2.pointer_level == 0))\
+                or (pt1.pointer_level == 0 and pt2.pointer_level == 0):
+
+            return if_code, "", "", spec_body
+
         if_code += "\n\t\tif("
 
         for lvalue_path in lvalue_path_list[:-1]:
-            if_code += f"{lvalue_path} != NULL &&"
+            if_code += f"{lvalue_path} != NULL && "
 
         for rvalue_path in rvalue_path_list[:-1]:
-            if_code += f"{rvalue_path} != NULL &&"
+            if_code += f"{rvalue_path} != NULL && "
 
         if pt1.pointer_level == pt2.pointer_level:
             if_code += f"{lvalue_path_list[-1]} == {rvalue_path_list[-1]})\n"
+            spec_body = f"{lvalue_path_list[-1]} == {rvalue_path_list[-1]}"
         elif pt1.pointer_level == pt2.pointer_level + 1:
             if_code += f"*{lvalue_path_list[-1]} == {rvalue_path_list[-1]})\n"
+            spec_body = f"*{lvalue_path_list[-1]} == {rvalue_path_list[-1]}"
         elif pt1.pointer_level + 1 == pt2.pointer_level:
             if_code += f"{lvalue_path_list[-1]} == *{rvalue_path_list[-1]})\n"
+            spec_body = f"{lvalue_path_list[-1]} == *{rvalue_path_list[-1]}"
 
-        return if_code, lvalue_path_list[-1], rvalue_path_list[-1]
+        return if_code, lvalue_path_list[-1], rvalue_path_list[-1], spec_body
 
     return if_code, "", ""
 
@@ -121,34 +140,35 @@ class Points_to_Information:
         self.name_path = name_path
         self.type_path = type_path
 
+typydef_names = {"FILE", "_IO_marker"}
+struct_map = {}
 
 class TypedefVisitor(c_ast.NodeVisitor):
-    def __init__(self):
-        self.typedef_map = {}
+    # def __init__(self):
+    #     self.typedef_map = {}
 
     def visit_Typedef(self, node):
         if isinstance(node.type, c_ast.TypeDecl):
-            # if node.type.declname and node.name and node.type.declname.startswith("cJSON"):
-            if node.type.declname and node.name:
-                value_name = node.type.declname
+            if node.type.declname and node.name and node.type.declname in typydef_names:
                 if isinstance(node.type.type, c_ast.Struct):
-                    isStruct = True
-                elif isinstance(node.type.type, c_ast.IdentifierType):
-                    isStruct = False
+                    struct_info = {"fields": []}
+                    for field in node.type.type.decls:
+                        # Record subfield name and type
+                        field_info = {"field": field.name, "type": field.type}
+                        print("field name: ", field.name)
+                        struct_info["fields"].append(field_info)
 
-                self.typedef_map[node.name] = {"isStruct": isStruct, "type": node.type.type}
-                # print(f"typedef name: {node.name}, value name: {value_name}, isStruct: {isStruct}, type: {node.type.type}")
-                # print(f"typedef name: {node.name}, value name: {value_name}, isStruct: {isStruct}")
+                    struct_map[node.type.type.name] = struct_info
+                    struct_map[node.name] = struct_info
 
-
-struct_map = {}
+                    print("\nnode name: ", node.name)
+                    print("node.type.type.name: ", node.type.type.name)
 
 
 class StructVisitor(c_ast.NodeVisitor):
 
     def visit_Struct(self, node):
-        # Record the struct with name starts with "cJSON"
-        if node.name and node.name.startswith("cJSON"):
+        if node.name and node.name in struct_map:
             struct_info = {"fields": []}
             for field in node.decls:
                 # Record subfield name and type
@@ -169,6 +189,7 @@ def ExtendStructPointer(variable_name, node, name_path, type_path, points_to_pat
     for key, value in struct_map.items():
         if key == node:
             # print(f"返回值是结构体指针: {key}")
+            # print("value[fields]: ", value["fields"])
             for field in value["fields"]:
                 # print(f"\t\tField Name: {field['field']},  Field Type: {field['type']}")
                 # 循环查看field的类型是否是结构体指针
@@ -209,6 +230,9 @@ def ExtendStructPointer(variable_name, node, name_path, type_path, points_to_pat
                     name_path.pop()
                     type_path.pop()
                 else:
+                    # if field['field'] == "_IO_marker":
+                    #     print("field['field']: ", field['field'])
+                    # print("field['field']: ", field['field'])
                     name_path.append(field['field'])
                     type_path.append(field['type'].type.names[0])
                     pt = Points_to_Information(getPointerLevel(field['type'], 0), copy.copy(name_path),
@@ -243,7 +267,7 @@ def isArgPointer(node_type, level):
     if isinstance(node_type, PtrDecl):
         return isArgPointer(node_type.type, level + 1)
     else:
-        return node_type.type.names[0], level
+         return node_type.type.names[0], level
 
 def generate_random_string_with_substring():
     length = random.randint(20, 50)  # 随机生成字符串长度在20到50之间
@@ -288,7 +312,27 @@ def createTestCasesinInFolder(Parms, cpp_harness_in_folder_path):
                 else:
                     with open(cpp_test_case_file_name, "a") as cpp_test_case_file:
                         cpp_test_case_file.write(f"{random.randint(0, random_string_length)}\n")
+            if argInfo[0] == "unsigned" or argInfo[0] == "unsigned int":
+                if i == 0:
+                    with open(cpp_test_case_file_name, "a") as cpp_test_case_file:
+                        cpp_test_case_file.write(f"{random_string_length}\n")
+                elif i == 1:
+                    with open(cpp_test_case_file_name, "a") as cpp_test_case_file:
+                        cpp_test_case_file.write(f"{substring_length}\n")
+                else:
+                    with open(cpp_test_case_file_name, "a") as cpp_test_case_file:
+                        cpp_test_case_file.write(f"{random.randint(0, random_string_length)}\n")
             elif argInfo[0] == "size_t":
+                if i == 0:
+                    with open(cpp_test_case_file_name, "a") as cpp_test_case_file:
+                        cpp_test_case_file.write(f"{random_string_length}\n")
+                elif i == 1:
+                    with open(cpp_test_case_file_name, "a") as cpp_test_case_file:
+                        cpp_test_case_file.write(f"{substring_length}\n")
+                else:
+                    with open(cpp_test_case_file_name, "a") as cpp_test_case_file:
+                        cpp_test_case_file.write(f"{random.randint(0, random_string_length)}\n")
+            elif argInfo[0] == "long":
                 if i == 0:
                     with open(cpp_test_case_file_name, "a") as cpp_test_case_file:
                         cpp_test_case_file.write(f"{random_string_length}\n")
@@ -318,9 +362,17 @@ def createTestCasesinInFolder(Parms, cpp_harness_in_folder_path):
                     else:
                         with open(cpp_test_case_file_name, "a") as cpp_test_case_file:
                             cpp_test_case_file.write(f"{substring}\n")
+            elif argInfo[0] == "FILE":
+                if argInfo[1] > 0:
+                    if i == 0:
+                        with open(cpp_test_case_file_name, "a") as cpp_test_case_file:
+                            cpp_test_case_file.write(f"{random_string}\n")
+                    else:
+                        with open(cpp_test_case_file_name, "a") as cpp_test_case_file:
+                            cpp_test_case_file.write(f"{substring}\n")
         iterater += 1
 
-
+excluded_functions = ["cookie_read_function_t", "cookie_write_function_t", "cookie_seek_function_t", "cookie_close_function_t", "fgetpos", "fopencookie"]
 class FuncDeclVisitor(NodeVisitor):
     def __init__(self):
         self.visit_count = 0
@@ -344,8 +396,22 @@ class FuncDeclVisitor(NodeVisitor):
 
         cpp_folder_path = createCppsFolder()
 
+        # 如果一个函数的返回值和参赛的类型都是原始类型， 那么就不用生成harnesss了
+        harnessCreate = False
+
         funcNameInfo = self.isFuncPointer(node.type, 0)
-        print("function name: %s" % funcNameInfo[0])
+
+        if funcNameInfo[0] in excluded_functions:
+            return
+
+
+        if funcNameInfo[2] > 0:
+            harnessCreate = True
+        # print("function name: %s" % funcNameInfo[0])
+
+        if funcNameInfo[0] == "fclose":
+            print("funcName: ", funcNameInfo[0])
+
         points_to_path = {}
         qual = ""
         if (isinstance(node.type, PtrDecl) and node.type.type.quals.__len__() > 0):
@@ -354,23 +420,6 @@ class FuncDeclVisitor(NodeVisitor):
             qual = node.type.quals[0]
 
         ######################## function call  ########################
-
-        cpp_harness_folder_path = os.path.join(cpp_folder_path, funcNameInfo[0])
-        if not os.path.exists(cpp_harness_folder_path):
-            os.mkdir(cpp_harness_folder_path)
-        # Create in folder
-        cpp_harness_in_folder_path = os.path.join(cpp_harness_folder_path, "in")
-        if not os.path.exists(cpp_harness_in_folder_path):
-            os.mkdir(cpp_harness_in_folder_path)
-
-        createTestCasesinInFolder(node.args.params, cpp_harness_in_folder_path)
-
-        # Create out folder
-        cpp_harness_out_folder_path = os.path.join(cpp_harness_folder_path, "out")
-        if not os.path.exists(cpp_harness_out_folder_path):
-            os.mkdir(cpp_harness_out_folder_path)
-        # Create harness
-        cpp_file_name = f"{cpp_harness_folder_path}/{funcNameInfo[0]}_harness.c"
         # cpp_code = f'#include <iostream>\n#include <fstream>\n#include <string>\n#include "cJSON.h"\n\nint main() {{\n\n\t'
         cpp_code = default_headers_code
         cpp_code += SpecFileGenFunctionCode()
@@ -380,13 +429,27 @@ class FuncDeclVisitor(NodeVisitor):
         cpp_code += afl_memset_code
         cpp_code += afl_read_code
 
+        if funcNameInfo[0] == "free":
+            print("funcName: ", funcNameInfo[0])
+
         buf = "buf"
         for i, param_decl in enumerate(node.args.params):
             ################### 参数初始化 ###################
             argInfo = self.isArgPointer(param_decl.type, 0)
 
+            if argInfo[1] > 0:
+                harnessCreate = True
+
             if argInfo[0] == "int":
                 cpp_code += f"\tint "
+                if argInfo[1] > 0:
+                    for j in range(argInfo[1]):
+                        cpp_code += "*"
+                cpp_code += f"{getParamName(param_decl) + str(i)};\n\t"
+                cpp_code += f"\tsscanf(strtok(NULL, \"\\n\"), \"%d\", &{getParamName(param_decl) + str(i)});\n\n\t"
+
+            if argInfo[0] == "unsigned" or argInfo[0] == "unsigned int":
+                cpp_code += f"\tunsigned int "
                 if argInfo[1] > 0:
                     for j in range(argInfo[1]):
                         cpp_code += "*"
@@ -400,6 +463,14 @@ class FuncDeclVisitor(NodeVisitor):
                         cpp_code += "*"
                 cpp_code += f"{getParamName(param_decl) + str(i)};\n\t"
                 cpp_code += f"\tsscanf(strtok(NULL, \"\\n\"), \"%lu\", &{getParamName(param_decl) + str(i)});\n\n\t"
+
+            elif argInfo[0] == "long":
+                cpp_code += f"\tlong "
+                if argInfo[1] > 0:
+                    for j in range(argInfo[1]):
+                        cpp_code += "*"
+                cpp_code += f"{getParamName(param_decl) + str(i)};\n\t"
+                cpp_code += f"\tsscanf(strtok(NULL, \"\\n\"), \"%ld\", &{getParamName(param_decl) + str(i)});\n\n\t"
 
             elif argInfo[0] == "float":
                 cpp_code += f"\tfloat "
@@ -426,13 +497,43 @@ class FuncDeclVisitor(NodeVisitor):
                 else:
                     cpp_code += f"{getParamName(param_decl) + str(i)} = strtok({buf}, \"\\n\")[0];\n\t"
             elif argInfo[0] == "void":
-                cpp_code += f"\tvoid "
                 if argInfo[1] > 0:
+                    cpp_code += f"\tvoid "
                     for j in range(argInfo[1]):
                         cpp_code += "*"
-                cpp_code += f"{getParamName(param_decl) + str(i)} = strtok({buf}, \"\\n\");\n\t"
+                    cpp_code += f"{getParamName(param_decl) + str(i)} = strtok({buf}, \"\\n\");\n\t"
+            elif argInfo[0] == "FILE":
+                if argInfo[1] > 0:
+                    cpp_code += "\tFILE *fp; "
+                    cpp_code += "\n\t\tfp = fopen(\"file.txt\" , "r");"
+                    cpp_code += "\n\t\tif(fp == NULL) {"
+                    cpp_code += "\n\t\t\tperror(\"Error opening file\");"
+                    cpp_code += "\n\t\t\treturn(-1);"
+                    cpp_code += "\n\t\t}\n\n"
+
 
             buf = "NULL"
+
+        if harnessCreate == False:
+            return
+
+        cpp_harness_folder_path = os.path.join(cpp_folder_path, funcNameInfo[0])
+        if not os.path.exists(cpp_harness_folder_path):
+            os.mkdir(cpp_harness_folder_path)
+        # Create in folder
+        cpp_harness_in_folder_path = os.path.join(cpp_harness_folder_path, "in")
+        if not os.path.exists(cpp_harness_in_folder_path):
+            os.mkdir(cpp_harness_in_folder_path)
+
+        createTestCasesinInFolder(node.args.params, cpp_harness_in_folder_path)
+
+        # Create out folder
+        cpp_harness_out_folder_path = os.path.join(cpp_harness_folder_path, "out")
+        if not os.path.exists(cpp_harness_out_folder_path):
+            os.mkdir(cpp_harness_out_folder_path)
+        # Create harness
+        cpp_file_name = f"{cpp_harness_folder_path}/{funcNameInfo[0]}_harness.c"
+
             ################### 参数初始化 ###################
 
         fun_signature_code = ""
@@ -441,24 +542,41 @@ class FuncDeclVisitor(NodeVisitor):
             fun_signature_code += f"{qual} {funcNameInfo[1]}"
             # print(f"{qual} {funcNameInfo[1]}", end="")
         else:
-            cpp_code += f"\n\t\t{funcNameInfo[1]}"
-            fun_signature_code += f"{funcNameInfo[1]}"
-            # print(f"{funcNameInfo[1]}", end="")
+            if funcNameInfo[1] != "void" or (funcNameInfo[1] == "void" and funcNameInfo[2]> 0):
+                cpp_code += f"\n\t\t{funcNameInfo[1]}"
+                fun_signature_code += f"{funcNameInfo[1]}"
+                # print(f"{funcNameInfo[1]}", end="")
+            else:
+                cpp_code += f"\n\t\t"
+                fun_signature_code += f"void"
+                # print(f"void", end="")
         for i in range(funcNameInfo[2]):
             cpp_code += "*"
             fun_signature_code += "*"
             # print("*", end="")
 
-        # fun_signature_code = ""
-        cpp_code += f" result = {funcNameInfo[0]}("
-        fun_signature_code += f" {funcNameInfo[0]}("
+        if funcNameInfo[1] != "void" or (funcNameInfo[1] == "void" and funcNameInfo[2]> 0):
+            cpp_code += f" result = {funcNameInfo[0]}("
+            fun_signature_code += f" {funcNameInfo[0]}("
+        else:
+            cpp_code += f" {funcNameInfo[0]}("
+            fun_signature_code += f" {funcNameInfo[0]}("
         # print(f" result = {funcNameInfo[0]}(", end="")
+
+
         for i, param_decl in enumerate(node.args.params):
             argInfo = self.isArgPointer(param_decl.type, 0)
-            if len(node.args.params) == 1 and param_decl.name is None:
+            if len(node.args.params) == 1:
+                if argInfo[0] =="void" and argInfo[1] == 0:
+                    cpp_code += f");\n"
+                    fun_signature_code += ")"
+                else:
+                    cpp_code += f"{getParamName(param_decl) + str(i)});\n"
+                    fun_signature_code += "arg)"
+                # print(");\n")
+            elif len(node.args.params) == 1:
                 cpp_code += f"{getParamName(param_decl) + str(i)});\n"
                 fun_signature_code += "arg)"
-                # print(");\n")
             elif i < len(node.args.params) - 1:
                 cpp_code += f"{getParamName(param_decl) + str(i)}, "
                 fun_signature_code += f"{argInfo[0]}"
@@ -503,10 +621,11 @@ class FuncDeclVisitor(NodeVisitor):
             argInfo = self.isArgPointer(param_decl.type, 0)
             if argInfo[1] > 0 and argInfo[0] in struct_map:
                 type_path = [argInfo[0]]
-                name_path = [param_decl.name]
+                name_path = [getParamName(param_decl) + str(i)]
                 pt = Points_to_Information(argInfo[1], name_path, type_path)
-                points_to_path[param_decl.name] = [pt]
-                ExtendStructPointer(param_decl.name, argInfo[0], name_path, type_path, points_to_path)
+                points_to_path[getParamName(param_decl) + str(i)] = [pt]
+                # ExtendStructPointer(param_decl.name, argInfo[0], name_path, type_path, points_to_path)
+                ExtendStructPointer(getParamName(param_decl) + str(i), argInfo[0], name_path, type_path, points_to_path)
             else:
                 type_path = [argInfo[0]]
                 name_path = [getParamName(param_decl) + str(i)]
@@ -514,10 +633,11 @@ class FuncDeclVisitor(NodeVisitor):
                 pt = Points_to_Information(argInfo[1], name_path, type_path)
                 points_to_path[getParamName(param_decl) + str(i)].append(pt)
 
-            # print(f"parameter {i + 1}: ")
-            # for i, pt in enumerate(points_to_path[getParamName(param_decl) + str(i)]):
-            #     print(f"\tpointer_level: {pt.pointer_level}, name_path: {pt.name_path}, type_path: {pt.type_path}")
+        if funcNameInfo[0] == "fclose":
+            print("funcName: ", funcNameInfo[0])
 
+        # 如果没有IF语句，那么就不用生成harness了
+        CreateHarness_If = False
         # Create a set to record the processed key pairs
         k = 0;
         processed_pairs = set()
@@ -529,13 +649,17 @@ class FuncDeclVisitor(NodeVisitor):
                     for pt1 in value1:
                         for pt2 in value2:
                             if_code = getIFCode(pt1, pt2)
+                            print("pt1.name_path: ", pt1.name_path)
+                            print("pt2.name_path: ", pt2.name_path)
                             if if_code[0] != "":
+                                CreateHarness_If = True
+                                print("CreateHarness_If: ", CreateHarness_If)
                                 cpp_code += if_code[0]
                                 cpp_code += "\t\t{"
                                 if if_code[1] == "result":
                                     cpp_code += f"\n\t\t\tSpecFileGeneration(\"return {if_code[2]};\", \"{funcNameInfo[0]}_{k}.cpp\", funSignature);"
                                 else:
-                                    cpp_code += f"\n\t\t\tSpecFileGeneration(\"{if_code[1]} = {if_code[2]};\", \"{funcNameInfo[0]}_{k}.cpp\", funSignature);"
+                                    cpp_code += f"\n\t\t\tSpecFileGeneration(\"{if_code[3]};\", \"{funcNameInfo[0]}_{k}.cpp\", funSignature);"
                                 cpp_code += "\n\t\t}"
                                 k += 1
 
@@ -545,8 +669,14 @@ class FuncDeclVisitor(NodeVisitor):
         with open(cpp_file_name, "w") as cpp_file:
             cpp_file.write(cpp_code + "\n")
 
+        if CreateHarness_If == False:
+            if os.path.exists(cpp_harness_folder_path) and os.path.isdir(cpp_harness_folder_path):
+                shutil.rmtree(cpp_harness_folder_path)
+            else:
+                print("文件夹不存在或不是一个目录")
 
-# TypedefVisitor().visit(ast)
+
+TypedefVisitor().visit(ast)
 
 StructVisitor().visit(ast)
 
