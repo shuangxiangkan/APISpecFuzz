@@ -1,0 +1,3 @@
+{"hobbies": ["reading", "hiking", "swimming"]}
+New York
+{"age": 30}

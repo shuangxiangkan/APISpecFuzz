@@ -1,0 +1,3 @@
+{"hobbies": ["reading", "hiking", "swimming"]}
+{"age": 30}
+{"age": 30}

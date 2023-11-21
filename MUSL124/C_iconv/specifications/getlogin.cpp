@@ -1,0 +1,4 @@
+char *getlogin()
+{
+    return obj;
+}

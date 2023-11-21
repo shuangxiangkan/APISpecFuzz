@@ -1,0 +1,3 @@
+{"hobbies": ["reading", "hiking", "swimming"]}
+14
+{"hobbies": ["reading", "hiking", "swimming"]}

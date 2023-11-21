@@ -1,0 +1,3 @@
+{"city": "New York"}
+reading
+{"hobbies": ["reading", "hiking", "swimming"]}

@@ -1,0 +1,26 @@
+cJson
+Melon
+zlib
+libmagic
+libpng(待定)
+libjpeg(待定)
+libgcrypt
+
+
+
+related papers:
+Modelgen: Mining Explicit Information Flow Specifications from Concrete Executions
+
+
+实验二：
+同一个testcase, 分别比较
+    1. testcase + 第三方库的specifications 和
+    2. testcase + 第三方库的source code
+进行比较，看points-to分析的结果是否一致或者相似
+
+可以利用SVF提供的MAY_ALIAS分析，来比较两者的结果是否一致
+
+
+实验三：
+判断我们在AFL++中的新设计是否对于提升生成specifications有帮助，比如不加入新的设计，
+只用原来的AFL++，看生成的specifications的数量是否有所减少，或者生成同样数量的specifications，时间是否会增加

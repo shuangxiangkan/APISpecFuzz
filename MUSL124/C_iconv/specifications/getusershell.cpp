@@ -1,0 +1,4 @@
+char *getusershell()
+{
+    return obj;
+}

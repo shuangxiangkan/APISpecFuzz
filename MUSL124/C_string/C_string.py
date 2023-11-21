@@ -38,7 +38,7 @@ ast = parse_file(filename, use_cpp=True, cpp_path='clang', cpp_args=cpp_args)
 
 # afl_clang_fast_path = "/home/kansx/Fuzz/AFLplusplus/afl-clang-fast"
 
-default_headers_code = ('#include <crypt.h>\n'
+default_headers_code = ('#include <iconv.h>\n'
                         '#include <string.h>\n\n')
 
 main_begin_code = 'int main() {\n\n\t'
