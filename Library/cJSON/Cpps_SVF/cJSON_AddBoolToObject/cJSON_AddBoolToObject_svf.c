@@ -13,10 +13,6 @@ int main() {
 	cJSON* result = cJSON_AddBoolToObject(object0, name1, boolean2);
 	MAYALIAS(result, object0);
 
-
-	MAYALIAS();
-
-
 	cJSON_Delete(object0);
 	return 0;
 }

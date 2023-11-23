@@ -1,0 +1,160 @@
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateRaw/cJSON_CreateRaw_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateRaw/cJSON_CreateRaw_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateDoubleArray/cJSON_CreateDoubleArray_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_free/cJSON_free_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsNumber/cJSON_IsNumber_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Compare/cJSON_Compare_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_PrintBuffered/cJSON_PrintBuffered_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_PrintBuffered/cJSON_PrintBuffered_svf_specification.ll' returned non-zero exit status 134.
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemViaPointer/cJSON_ReplaceItemViaPointer_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemViaPointer/cJSON_ReplaceItemViaPointer_svf_specification.ll' returned non-zero exit status 134.
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetObjectItem/cJSON_GetObjectItem_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetObjectItem/cJSON_GetObjectItem_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_SetNumberHelper/cJSON_SetNumberHelper_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DeleteItemFromArray/cJSON_DeleteItemFromArray_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateArrayReference/cJSON_CreateArrayReference_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ParseWithOpts/cJSON_ParseWithOpts_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ParseWithOpts/cJSON_ParseWithOpts_svf_specification.ll' returned non-zero exit status 134.
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_PrintUnformatted/cJSON_PrintUnformatted_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_PrintUnformatted/cJSON_PrintUnformatted_svf_specification.ll' returned non-zero exit status 134.
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemInObject/cJSON_ReplaceItemInObject_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemInObject/cJSON_ReplaceItemInObject_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DetachItemFromObjectCaseSensitive/cJSON_DetachItemFromObjectCaseSensitive_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateNull/cJSON_CreateNull_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DetachItemViaPointer/cJSON_DetachItemViaPointer_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateTrue/cJSON_CreateTrue_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DetachItemFromObject/cJSON_DetachItemFromObject_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsArray/cJSON_IsArray_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemInArray/cJSON_ReplaceItemInArray_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemInArray/cJSON_ReplaceItemInArray_svf_specification.ll' returned non-zero exit status 134.
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddStringToObject/cJSON_AddStringToObject_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddStringToObject/cJSON_AddStringToObject_svf_specification.ll' returned non-zero exit status 134.
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ParseWithLengthOpts/cJSON_ParseWithLengthOpts_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ParseWithLengthOpts/cJSON_ParseWithLengthOpts_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Minify/cJSON_Minify_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddObjectToObject/cJSON_AddObjectToObject_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_malloc/cJSON_malloc_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemToArray/cJSON_AddItemToArray_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemToArray/cJSON_AddItemToArray_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsFalse/cJSON_IsFalse_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Parse/cJSON_Parse_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Parse/cJSON_Parse_svf_specification.ll' returned non-zero exit status 134.
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemInObjectCaseSensitive/cJSON_ReplaceItemInObjectCaseSensitive_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemInObjectCaseSensitive/cJSON_ReplaceItemInObjectCaseSensitive_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddArrayToObject/cJSON_AddArrayToObject_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Version/cJSON_Version_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateStringArray/cJSON_CreateStringArray_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateStringArray/cJSON_CreateStringArray_svf_specification.ll' returned non-zero exit status 134.
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetStringValue/cJSON_GetStringValue_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetStringValue/cJSON_GetStringValue_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateIntArray/cJSON_CreateIntArray_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsBool/cJSON_IsBool_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Delete/cJSON_Delete_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateNumber/cJSON_CreateNumber_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsRaw/cJSON_IsRaw_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_SetValuestring/cJSON_SetValuestring_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemToObject/cJSON_AddItemToObject_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemToObject/cJSON_AddItemToObject_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DetachItemFromArray/cJSON_DetachItemFromArray_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddFalseToObject/cJSON_AddFalseToObject_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Print/cJSON_Print_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Print/cJSON_Print_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddNumberToObject/cJSON_AddNumberToObject_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddRawToObject/cJSON_AddRawToObject_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateStringReference/cJSON_CreateStringReference_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateStringReference/cJSON_CreateStringReference_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateBool/cJSON_CreateBool_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_PrintPreallocated/cJSON_PrintPreallocated_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_PrintPreallocated/cJSON_PrintPreallocated_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddNullToObject/cJSON_AddNullToObject_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateString/cJSON_CreateString_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateString/cJSON_CreateString_svf_specification.ll' returned non-zero exit status 134.
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_HasObjectItem/cJSON_HasObjectItem_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_HasObjectItem/cJSON_HasObjectItem_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddBoolToObject/cJSON_AddBoolToObject_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ParseWithLength/cJSON_ParseWithLength_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ParseWithLength/cJSON_ParseWithLength_svf_specification.ll' returned non-zero exit status 134.
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemReferenceToArray/cJSON_AddItemReferenceToArray_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemReferenceToArray/cJSON_AddItemReferenceToArray_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateObject/cJSON_CreateObject_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsString/cJSON_IsString_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemToObjectCS/cJSON_AddItemToObjectCS_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemToObjectCS/cJSON_AddItemToObjectCS_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetNumberValue/cJSON_GetNumberValue_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetArrayItem/cJSON_GetArrayItem_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetErrorPtr/cJSON_GetErrorPtr_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsInvalid/cJSON_IsInvalid_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddTrueToObject/cJSON_AddTrueToObject_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateArray/cJSON_CreateArray_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsNull/cJSON_IsNull_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsObject/cJSON_IsObject_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsTrue/cJSON_IsTrue_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetArraySize/cJSON_GetArraySize_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_InsertItemInArray/cJSON_InsertItemInArray_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_InsertItemInArray/cJSON_InsertItemInArray_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Duplicate/cJSON_Duplicate_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DeleteItemFromObjectCaseSensitive/cJSON_DeleteItemFromObjectCaseSensitive_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemReferenceToObject/cJSON_AddItemReferenceToObject_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemReferenceToObject/cJSON_AddItemReferenceToObject_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateFloatArray/cJSON_CreateFloatArray_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DeleteItemFromObject/cJSON_DeleteItemFromObject_svf_specification.ll
+执行 /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetObjectItemCaseSensitive/cJSON_GetObjectItemCaseSensitive_svf_specification.ll 失败: Command '/home/kansx/SVF-Tools/SVF-latest/Debug-build/bin/wpa -ander -stat=false /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetObjectItemCaseSensitive/cJSON_GetObjectItemCaseSensitive_svf_specification.ll' returned non-zero exit status 134.
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateObjectReference/cJSON_CreateObjectReference_svf_specification.ll
+已成功执行: /home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateFalse/cJSON_CreateFalse_svf_specification.ll
+ --------------------------- wpa_specification 执行完成 --------------------------- 
+总计执行文件数: 77
+执行成功的文件数: 50
+执行成功的文件列表:
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateDoubleArray/cJSON_CreateDoubleArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_free/cJSON_free_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsNumber/cJSON_IsNumber_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Compare/cJSON_Compare_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_SetNumberHelper/cJSON_SetNumberHelper_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DeleteItemFromArray/cJSON_DeleteItemFromArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateArrayReference/cJSON_CreateArrayReference_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DetachItemFromObjectCaseSensitive/cJSON_DetachItemFromObjectCaseSensitive_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateNull/cJSON_CreateNull_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DetachItemViaPointer/cJSON_DetachItemViaPointer_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateTrue/cJSON_CreateTrue_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DetachItemFromObject/cJSON_DetachItemFromObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsArray/cJSON_IsArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Minify/cJSON_Minify_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddObjectToObject/cJSON_AddObjectToObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_malloc/cJSON_malloc_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsFalse/cJSON_IsFalse_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddArrayToObject/cJSON_AddArrayToObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Version/cJSON_Version_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateIntArray/cJSON_CreateIntArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsBool/cJSON_IsBool_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Delete/cJSON_Delete_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateNumber/cJSON_CreateNumber_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsRaw/cJSON_IsRaw_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_SetValuestring/cJSON_SetValuestring_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DetachItemFromArray/cJSON_DetachItemFromArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddFalseToObject/cJSON_AddFalseToObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddNumberToObject/cJSON_AddNumberToObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddRawToObject/cJSON_AddRawToObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateBool/cJSON_CreateBool_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddNullToObject/cJSON_AddNullToObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddBoolToObject/cJSON_AddBoolToObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateObject/cJSON_CreateObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsString/cJSON_IsString_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetNumberValue/cJSON_GetNumberValue_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetArrayItem/cJSON_GetArrayItem_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetErrorPtr/cJSON_GetErrorPtr_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsInvalid/cJSON_IsInvalid_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddTrueToObject/cJSON_AddTrueToObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateArray/cJSON_CreateArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsNull/cJSON_IsNull_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsObject/cJSON_IsObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_IsTrue/cJSON_IsTrue_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetArraySize/cJSON_GetArraySize_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Duplicate/cJSON_Duplicate_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DeleteItemFromObjectCaseSensitive/cJSON_DeleteItemFromObjectCaseSensitive_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateFloatArray/cJSON_CreateFloatArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_DeleteItemFromObject/cJSON_DeleteItemFromObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateObjectReference/cJSON_CreateObjectReference_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateFalse/cJSON_CreateFalse_svf_specification.ll
+执行失败的文件数: 27
+执行失败的文件列表:
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateRaw/cJSON_CreateRaw_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_PrintBuffered/cJSON_PrintBuffered_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemViaPointer/cJSON_ReplaceItemViaPointer_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetObjectItem/cJSON_GetObjectItem_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ParseWithOpts/cJSON_ParseWithOpts_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_PrintUnformatted/cJSON_PrintUnformatted_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemInObject/cJSON_ReplaceItemInObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemInArray/cJSON_ReplaceItemInArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddStringToObject/cJSON_AddStringToObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ParseWithLengthOpts/cJSON_ParseWithLengthOpts_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemToArray/cJSON_AddItemToArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Parse/cJSON_Parse_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ReplaceItemInObjectCaseSensitive/cJSON_ReplaceItemInObjectCaseSensitive_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateStringArray/cJSON_CreateStringArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetStringValue/cJSON_GetStringValue_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemToObject/cJSON_AddItemToObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_Print/cJSON_Print_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateStringReference/cJSON_CreateStringReference_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_PrintPreallocated/cJSON_PrintPreallocated_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_CreateString/cJSON_CreateString_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_HasObjectItem/cJSON_HasObjectItem_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_ParseWithLength/cJSON_ParseWithLength_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemReferenceToArray/cJSON_AddItemReferenceToArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemToObjectCS/cJSON_AddItemToObjectCS_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_InsertItemInArray/cJSON_InsertItemInArray_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_AddItemReferenceToObject/cJSON_AddItemReferenceToObject_svf_specification.ll
+/home/kansx/Fuzz/APISpecFuzz/Library/cJSON/Cpps_SVF/cJSON_GetObjectItemCaseSensitive/cJSON_GetObjectItemCaseSensitive_svf_specification.ll

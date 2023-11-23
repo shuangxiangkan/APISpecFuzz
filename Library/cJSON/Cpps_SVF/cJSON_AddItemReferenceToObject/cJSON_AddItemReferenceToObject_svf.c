@@ -13,10 +13,7 @@ int main() {
 	cJSON_bool result = cJSON_AddItemReferenceToObject(object0, string1, item2);
 	MAYALIAS(object0, item2);
     MAYALIAS(object0->string, string1);
-    MAYALIAS(object0-->valuestring, string1);
-
-	MAYALIAS();
-
+    MAYALIAS(object0->valuestring, string1);
 
 	cJSON_Delete(object0);
 	cJSON_Delete(item2);

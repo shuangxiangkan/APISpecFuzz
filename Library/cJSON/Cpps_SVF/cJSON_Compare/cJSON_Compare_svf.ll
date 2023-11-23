@@ -24,22 +24,15 @@ define dso_local i32 @main() #0 {
   %11 = call i32 @cJSON_Compare(%struct.cJSON* noundef %8, %struct.cJSON* noundef %9, i32 noundef %10)
   store i32 %11, i32* %5, align 4
   %12 = load %struct.cJSON*, %struct.cJSON** %2, align 8
-  %13 = bitcast %struct.cJSON* %12 to i8*
-  %14 = load %struct.cJSON*, %struct.cJSON** %3, align 8
-  %15 = bitcast %struct.cJSON* %14 to i8*
-  call void @MAYALIAS(i8* noundef %13, i8* noundef %15)
-  %16 = load %struct.cJSON*, %struct.cJSON** %2, align 8
-  call void @cJSON_Delete(%struct.cJSON* noundef %16)
-  %17 = load %struct.cJSON*, %struct.cJSON** %3, align 8
-  call void @cJSON_Delete(%struct.cJSON* noundef %17)
+  call void @cJSON_Delete(%struct.cJSON* noundef %12)
+  %13 = load %struct.cJSON*, %struct.cJSON** %3, align 8
+  call void @cJSON_Delete(%struct.cJSON* noundef %13)
   ret i32 0
 }
 
 declare dso_local %struct.cJSON* @cJSON_CreateObject() #1
 
 declare dso_local i32 @cJSON_Compare(%struct.cJSON* noundef, %struct.cJSON* noundef, i32 noundef) #1
-
-declare dso_local void @MAYALIAS(i8* noundef, i8* noundef) #1
 
 declare dso_local void @cJSON_Delete(%struct.cJSON* noundef) #1
 

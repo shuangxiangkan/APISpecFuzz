@@ -6,7 +6,7 @@ extern void MAYALIAS(void*,void*);
 
 int main() {
 
-	double num0 = "123.12";
+	double num0 = 123.12;
 	
 	cJSON* result = cJSON_CreateNumber(num0);
 

@@ -14,7 +14,7 @@ int main() {
 
 	MAYALIAS(object0, item2);
     MAYALIAS(object0->string, string1);
-    MAYALIAS(object0-->valuestring, string1);
+    MAYALIAS(object0->valuestring, string1);
 
 
 	cJSON_Delete(object0);

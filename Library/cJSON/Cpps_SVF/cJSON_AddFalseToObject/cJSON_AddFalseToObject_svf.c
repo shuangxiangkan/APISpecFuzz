@@ -12,10 +12,7 @@ int main() {
 	cJSON* result = cJSON_AddFalseToObject(object0, name1);
 	MAYALIAS(result, object0);
     MAYALIAS(object0->string, name1);
-    MAYALIAS(object0-->valuestring, name1);
-
-
-	MAYALIAS();
+    MAYALIAS(object0->valuestring, name1);
 
 
 	cJSON_Delete(object0);

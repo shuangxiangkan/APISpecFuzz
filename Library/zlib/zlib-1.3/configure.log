@@ -160,3 +160,1345 @@ uname = Linux
 --------------------
 
 
+--------------------
+./configure
+Wed 22 Nov 2023 14:08:07 AEDT
+=== ztest3211452.c ===
+extern int getchar();
+int hello() {return getchar();}
+===
+wllvm -c ztest3211452.c
+CRITICAL:LLVM_COMPILER = /home/kansx/Fuzz/AFLplusplus/afl-clang-fast : Invalid compiler type
+WARNING:wllvm: exception case: %s = %s : Invalid compiler type
+... using wllvm
+
+Checking for obsessive-compulsive compiler options...
+=== ztest3211452.c ===
+int foo() { return 0; }
+===
+wllvm -c -O ztest3211452.c
+CRITICAL:LLVM_COMPILER = /home/kansx/Fuzz/AFLplusplus/afl-clang-fast : Invalid compiler type
+WARNING:wllvm: exception case: %s = %s : Invalid compiler type
+(exit code 1)
+Compiler error reporting is too harsh for ./configure (perhaps remove -Werror).
+** ./configure aborting.
+--------------------
+
+
+--------------------
+./configure
+Wed 22 Nov 2023 14:08:49 AEDT
+=== ztest3211997.c ===
+extern int getchar();
+int hello() {return getchar();}
+===
+wllvm -c ztest3211997.c
+... using gcc
+
+Checking for obsessive-compulsive compiler options...
+=== ztest3211997.c ===
+int foo() { return 0; }
+===
+wllvm -c -O3 ztest3211997.c
+
+Checking for shared library support...
+=== ztest3211997.c ===
+extern int getchar();
+int hello() {return getchar();}
+===
+wllvm -w -c -O3 -fPIC ztest3211997.c
+wllvm -shared -Wl,-soname,libz.so.1,--version-script,zlib.map -O3 -fPIC -o ztest3211997.so ztest3211997.o
+Building shared library libz.so.1.3 with wllvm.
+
+=== ztest3211997.c ===
+#include <stdio.h>
+#include <stdlib.h>
+size_t dummy = 0;
+===
+wllvm -c -O3 ztest3211997.c
+Checking for size_t... Yes.
+
+=== ztest3211997.c ===
+#include <sys/types.h>
+off64_t dummy = 0;
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3211997.c
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+
+=== ztest3211997.c ===
+#include <string.h>
+#include <errno.h>
+int main() { return strlen(strerror(errno)); }
+===
+wllvm -O3 -D_LARGEFILE64_SOURCE=1 -o ztest3211997 ztest3211997.c
+Checking for strerror... Yes.
+
+=== ztest3211997.c ===
+#include <unistd.h>
+int main() { return 0; }
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3211997.c
+Checking for unistd.h... Yes.
+
+=== ztest3211997.c ===
+#include <stdarg.h>
+int main() { return 0; }
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3211997.c
+Checking for stdarg.h... Yes.
+
+=== ztest3211997.c ===
+#include <stdio.h>
+#include <stdarg.h>
+#include "zconf.h"
+int main()
+{
+#ifndef STDC
+  choke me
+#endif
+  return 0;
+}
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3211997.c
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+
+=== ztest3211997.c ===
+#include <stdio.h>
+#include <stdarg.h>
+int mytest(const char *fmt, ...)
+{
+  char buf[20];
+  va_list ap;
+  va_start(ap, fmt);
+  vsnprintf(buf, sizeof(buf), fmt, ap);
+  va_end(ap);
+  return 0;
+}
+int main()
+{
+  return (mytest("Hello%d\n", 1));
+}
+===
+wllvm -O3 -D_LARGEFILE64_SOURCE=1 -o ztest3211997 ztest3211997.c
+Checking for vsnprintf() in stdio.h... Yes.
+
+=== ztest3211997.c ===
+#include <stdio.h>
+#include <stdarg.h>
+int mytest(const char *fmt, ...)
+{
+  int n;
+  char buf[20];
+  va_list ap;
+  va_start(ap, fmt);
+  n = vsnprintf(buf, sizeof(buf), fmt, ap);
+  va_end(ap);
+  return n;
+}
+int main()
+{
+  return (mytest("Hello%d\n", 1));
+}
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3211997.c
+Checking for return value of vsnprintf()... Yes.
+
+=== ztest3211997.c ===
+#define ZLIB_INTERNAL __attribute__((visibility ("hidden")))
+int ZLIB_INTERNAL foo;
+int main()
+{
+  return 0;
+}
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3211997.c
+Checking for attribute(visibility) support... Yes.
+
+ALL = static shared all64
+AR = ar
+ARFLAGS = rc
+CC = wllvm
+CFLAGS = -O3 -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN
+CPP =
+EXE =
+LDCONFIG = ldconfig
+LDFLAGS =
+LDSHARED = wllvm -shared -Wl,-soname,libz.so.1,--version-script,zlib.map
+LDSHAREDLIBC = -lc
+OBJC = $(OBJZ) $(OBJG)
+PIC_OBJC = $(PIC_OBJZ) $(PIC_OBJG)
+RANLIB = ranlib
+SFLAGS = -O3 -fPIC -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN
+SHAREDLIB = libz.so
+SHAREDLIBM = libz.so.1
+SHAREDLIBV = libz.so.1.3
+STATICLIB = libz.a
+TEST = all teststatic testshared test64
+VER = 1.3
+SRCDIR =
+exec_prefix = ${prefix}
+includedir = ${prefix}/include
+libdir = ${exec_prefix}/lib
+mandir = ${prefix}/share/man
+prefix = /usr/local
+sharedlibdir = ${libdir}
+uname = Linux
+--------------------
+
+
+--------------------
+./configure
+Wed 22 Nov 2023 14:08:56 AEDT
+=== ztest3212262.c ===
+extern int getchar();
+int hello() {return getchar();}
+===
+wllvm -c ztest3212262.c
+CRITICAL:LLVM_COMPILER = /home/kansx/Fuzz/AFLplusplus/afl-clang-fast : Invalid compiler type
+WARNING:wllvm: exception case: %s = %s : Invalid compiler type
+... using wllvm
+
+Checking for obsessive-compulsive compiler options...
+=== ztest3212262.c ===
+int foo() { return 0; }
+===
+wllvm -c -O ztest3212262.c
+CRITICAL:LLVM_COMPILER = /home/kansx/Fuzz/AFLplusplus/afl-clang-fast : Invalid compiler type
+WARNING:wllvm: exception case: %s = %s : Invalid compiler type
+(exit code 1)
+Compiler error reporting is too harsh for ./configure (perhaps remove -Werror).
+** ./configure aborting.
+--------------------
+
+
+--------------------
+./configure
+Wed 22 Nov 2023 14:24:33 AEDT
+=== ztest3223135.c ===
+extern int getchar();
+int hello() {return getchar();}
+===
+wllvm -c ztest3223135.c
+... using gcc
+
+Checking for obsessive-compulsive compiler options...
+=== ztest3223135.c ===
+int foo() { return 0; }
+===
+wllvm -c -O3 ztest3223135.c
+
+Checking for shared library support...
+=== ztest3223135.c ===
+extern int getchar();
+int hello() {return getchar();}
+===
+wllvm -w -c -O3 -fPIC ztest3223135.c
+wllvm -shared -Wl,-soname,libz.so.1,--version-script,zlib.map -O3 -fPIC -o ztest3223135.so ztest3223135.o
+Building shared library libz.so.1.3 with wllvm.
+
+=== ztest3223135.c ===
+#include <stdio.h>
+#include <stdlib.h>
+size_t dummy = 0;
+===
+wllvm -c -O3 ztest3223135.c
+Checking for size_t... Yes.
+
+=== ztest3223135.c ===
+#include <sys/types.h>
+off64_t dummy = 0;
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3223135.c
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+
+=== ztest3223135.c ===
+#include <string.h>
+#include <errno.h>
+int main() { return strlen(strerror(errno)); }
+===
+wllvm -O3 -D_LARGEFILE64_SOURCE=1 -o ztest3223135 ztest3223135.c
+Checking for strerror... Yes.
+
+=== ztest3223135.c ===
+#include <unistd.h>
+int main() { return 0; }
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3223135.c
+Checking for unistd.h... Yes.
+
+=== ztest3223135.c ===
+#include <stdarg.h>
+int main() { return 0; }
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3223135.c
+Checking for stdarg.h... Yes.
+
+=== ztest3223135.c ===
+#include <stdio.h>
+#include <stdarg.h>
+#include "zconf.h"
+int main()
+{
+#ifndef STDC
+  choke me
+#endif
+  return 0;
+}
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3223135.c
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+
+=== ztest3223135.c ===
+#include <stdio.h>
+#include <stdarg.h>
+int mytest(const char *fmt, ...)
+{
+  char buf[20];
+  va_list ap;
+  va_start(ap, fmt);
+  vsnprintf(buf, sizeof(buf), fmt, ap);
+  va_end(ap);
+  return 0;
+}
+int main()
+{
+  return (mytest("Hello%d\n", 1));
+}
+===
+wllvm -O3 -D_LARGEFILE64_SOURCE=1 -o ztest3223135 ztest3223135.c
+Checking for vsnprintf() in stdio.h... Yes.
+
+=== ztest3223135.c ===
+#include <stdio.h>
+#include <stdarg.h>
+int mytest(const char *fmt, ...)
+{
+  int n;
+  char buf[20];
+  va_list ap;
+  va_start(ap, fmt);
+  n = vsnprintf(buf, sizeof(buf), fmt, ap);
+  va_end(ap);
+  return n;
+}
+int main()
+{
+  return (mytest("Hello%d\n", 1));
+}
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3223135.c
+Checking for return value of vsnprintf()... Yes.
+
+=== ztest3223135.c ===
+#define ZLIB_INTERNAL __attribute__((visibility ("hidden")))
+int ZLIB_INTERNAL foo;
+int main()
+{
+  return 0;
+}
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3223135.c
+Checking for attribute(visibility) support... Yes.
+
+ALL = static shared all64
+AR = ar
+ARFLAGS = rc
+CC = wllvm
+CFLAGS = -O3 -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN
+CPP =
+EXE =
+LDCONFIG = ldconfig
+LDFLAGS =
+LDSHARED = wllvm -shared -Wl,-soname,libz.so.1,--version-script,zlib.map
+LDSHAREDLIBC = -lc
+OBJC = $(OBJZ) $(OBJG)
+PIC_OBJC = $(PIC_OBJZ) $(PIC_OBJG)
+RANLIB = ranlib
+SFLAGS = -O3 -fPIC -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN
+SHAREDLIB = libz.so
+SHAREDLIBM = libz.so.1
+SHAREDLIBV = libz.so.1.3
+STATICLIB = libz.a
+TEST = all teststatic testshared test64
+VER = 1.3
+SRCDIR =
+exec_prefix = ${prefix}
+includedir = ${prefix}/include
+libdir = ${exec_prefix}/lib
+mandir = ${prefix}/share/man
+prefix = /usr/local
+sharedlibdir = ${libdir}
+uname = Linux
+--------------------
+
+
+--------------------
+./configure
+Wed 22 Nov 2023 14:27:33 AEDT
+=== ztest3225656.c ===
+extern int getchar();
+int hello() {return getchar();}
+===
+wllvm -c ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+... using gcc
+
+Checking for obsessive-compulsive compiler options...
+=== ztest3225656.c ===
+int foo() { return 0; }
+===
+wllvm -c -O3 ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+
+Checking for shared library support...
+=== ztest3225656.c ===
+extern int getchar();
+int hello() {return getchar();}
+===
+wllvm -w -c -O3 -fPIC ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+wllvm -shared -Wl,-soname,libz.so.1,--version-script,zlib.map -O3 -fPIC -o ztest3225656.so ztest3225656.o
+Building shared library libz.so.1.3 with wllvm.
+
+=== ztest3225656.c ===
+#include <stdio.h>
+#include <stdlib.h>
+size_t dummy = 0;
+===
+wllvm -c -O3 ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+Checking for size_t... Yes.
+
+=== ztest3225656.c ===
+#include <sys/types.h>
+off64_t dummy = 0;
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+
+=== ztest3225656.c ===
+#include <string.h>
+#include <errno.h>
+int main() { return strlen(strerror(errno)); }
+===
+wllvm -O3 -D_LARGEFILE64_SOURCE=1 -o ztest3225656 ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+Checking for strerror... Yes.
+
+=== ztest3225656.c ===
+#include <unistd.h>
+int main() { return 0; }
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+Checking for unistd.h... Yes.
+
+=== ztest3225656.c ===
+#include <stdarg.h>
+int main() { return 0; }
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+Checking for stdarg.h... Yes.
+
+=== ztest3225656.c ===
+#include <stdio.h>
+#include <stdarg.h>
+#include "zconf.h"
+int main()
+{
+#ifndef STDC
+  choke me
+#endif
+  return 0;
+}
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+
+=== ztest3225656.c ===
+#include <stdio.h>
+#include <stdarg.h>
+int mytest(const char *fmt, ...)
+{
+  char buf[20];
+  va_list ap;
+  va_start(ap, fmt);
+  vsnprintf(buf, sizeof(buf), fmt, ap);
+  va_end(ap);
+  return 0;
+}
+int main()
+{
+  return (mytest("Hello%d\n", 1));
+}
+===
+wllvm -O3 -D_LARGEFILE64_SOURCE=1 -o ztest3225656 ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+Checking for vsnprintf() in stdio.h... Yes.
+
+=== ztest3225656.c ===
+#include <stdio.h>
+#include <stdarg.h>
+int mytest(const char *fmt, ...)
+{
+  int n;
+  char buf[20];
+  va_list ap;
+  va_start(ap, fmt);
+  n = vsnprintf(buf, sizeof(buf), fmt, ap);
+  va_end(ap);
+  return n;
+}
+int main()
+{
+  return (mytest("Hello%d\n", 1));
+}
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+Checking for return value of vsnprintf()... Yes.
+
+=== ztest3225656.c ===
+#define ZLIB_INTERNAL __attribute__((visibility ("hidden")))
+int ZLIB_INTERNAL foo;
+int main()
+{
+  return 0;
+}
+===
+wllvm -c -O3 -D_LARGEFILE64_SOURCE=1 ztest3225656.c
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+===================== gzdopen
+===================== gzvprintf
+===================== deflateCopy
+===================== gzread
+===================== inflateSetDictionary
+===================== gzputs
+===================== inflateBackInit_
+===================== gzopen
+===================== inflateInit2_
+===================== inflateBack
+===================== deflateInit2_
+===================== inflateInit_
+===================== uncompress
+===================== deflatePending
+===================== compress
+===================== deflateGetDictionary
+===================== inflateGetDictionary
+===================== inflateGetHeader
+===================== gzopen64
+===================== gzerror
+===================== gzfread
+===================== gzprintf
+===================== inflateCopy
+===================== gzwrite
+===================== deflateInit_
+===================== uncompress2
+===================== gzgets
+===================== deflateSetHeader
+===================== gzfwrite
+===================== deflateSetDictionary
+===================== compress2
+Checking for attribute(visibility) support... No.
+
+ALL = static shared all64
+AR = ar
+ARFLAGS = rc
+CC = wllvm
+CFLAGS = -O3 -D_LARGEFILE64_SOURCE=1
+CPP =
+EXE =
+LDCONFIG = ldconfig
+LDFLAGS =
+LDSHARED = wllvm -shared -Wl,-soname,libz.so.1,--version-script,zlib.map
+LDSHAREDLIBC = -lc
+OBJC = $(OBJZ) $(OBJG)
+PIC_OBJC = $(PIC_OBJZ) $(PIC_OBJG)
+RANLIB = ranlib
+SFLAGS = -O3 -fPIC -D_LARGEFILE64_SOURCE=1
+SHAREDLIB = libz.so
+SHAREDLIBM = libz.so.1
+SHAREDLIBV = libz.so.1.3
+STATICLIB = libz.a
+TEST = all teststatic testshared test64
+VER = 1.3
+SRCDIR =
+exec_prefix = ${prefix}
+includedir = ${prefix}/include
+libdir = ${exec_prefix}/lib
+mandir = ${prefix}/share/man
+prefix = /usr/local
+sharedlibdir = ${libdir}
+uname = Linux
+--------------------
+
+

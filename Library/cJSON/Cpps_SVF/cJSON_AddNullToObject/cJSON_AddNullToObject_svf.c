@@ -12,8 +12,8 @@ int main() {
 	cJSON* result = cJSON_AddNullToObject(object0, name1);
 
 	MAYALIAS(object0, result);
-    MAYALIAS(object0->string, string1);
-    MAYALIAS(object0-->valuestring, string1);
+    MAYALIAS(object0->string, name1);
+    MAYALIAS(object0->valuestring, name1);
 
 
 	cJSON_Delete(object0);

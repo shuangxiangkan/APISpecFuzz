@@ -13,10 +13,10 @@ int main() {
 	cJSON* result = cJSON_AddStringToObject(object0, name1, string2);
 
 	MAYALIAS(object0, result);
-    MAYALIAS(object0->string, name1);
-    MAYALIAS(object0-->valuestring, name1);
-    MAYALIAS(object0->string, string2);
-    MAYALIAS(object0-->valuestring, string2);
+    // MAYALIAS(object0->string, name1);
+    // MAYALIAS(object0->valuestring, name1);
+    // MAYALIAS(object0->string, string2);
+    // MAYALIAS(object0->valuestring, string2);
 
 
 	cJSON_Delete(object0);

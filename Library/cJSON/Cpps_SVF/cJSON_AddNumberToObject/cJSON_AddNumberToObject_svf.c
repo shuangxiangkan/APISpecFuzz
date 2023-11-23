@@ -8,7 +8,7 @@ int main() {
 
 	cJSON *object0 = cJSON_CreateObject();
 	char *name1 = "abc";
-	double number2 = "123.12";
+	double number2 = 123.12;
 	
 	cJSON* result = cJSON_AddNumberToObject(object0, name1, number2);
 

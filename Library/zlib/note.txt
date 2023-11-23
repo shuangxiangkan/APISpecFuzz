@@ -1,52 +1,8 @@
 常用函数(ChatGPT提供)：
-截至我的最后更新（2023年4月），zlib 库中大约有30个供外部调用的函数。这些函数提供了数据压缩、解压缩、相关设置和错误处理等功能。以下是一个大致的分类和函数列表：
 
-基本压缩和解压缩函数
-deflate
-deflateEnd
-inflate
-inflateEnd
-高级压缩和解压缩函数
-deflateInit
-deflateInit2
-inflateInit
-inflateInit2
-压缩和解压缩的辅助函数
-deflateSetDictionary
-deflateCopy
-deflateReset
-deflateParams
-deflateTune
-deflateBound
-deflatePrime
-inflateSetDictionary
-inflateSync
-inflateCopy
-inflateReset
-inflateReset2
-inflatePrime
-inflateMark
-校验和函数
-adler32
-crc32
-实用函数
-compress
-compress2
-compressBound
-uncompress
-错误处理和版本信息函数
-zlibVersion
-zError
-gzip 相关函数
-deflateInit2
-inflateInit2
-gzopen
-gzread
-gzwrite
-gzclose
-gzerror
-zlib 的这些函数涵盖了从基本的数据压缩和解压缩到更高级的操作和配置管理。开发者可以根据具体需求选择相应的函数进行工作。由于 zlib 是一个成熟且稳定的库，它的 API 在长时间内保持了相对的一致性。
-
+zlib.h中有111个函数
+进行fuzz的函数有31个
+fuzz出来的函数有specification的函数有8个
 
 
 官方文档：https://www.zlib.net/manual.html
@@ -60,6 +16,16 @@ make
 extract-bc libz.so.1.3
 llvm-dis libz.so.1.3.bc libz.so.1.3.ll (libz.so.1.3.ll就是下面的zlib_1.3.ll)
 
+
+使用wllvm和afl-clang-fast将zlib_test.c编译成bc文件：
+首先在zlib-1.3/目录下创建一个文件functions.txt，放入需要instrument的函数名，然后执行下面的命令：
+export LLVM_COMPILER=clang
+export LLVM_CC_NAME=/home/kansx/Fuzz/AFLplusplus/afl-clang-fast
+CC=wllvm ./configure
+make
+extract-bc libz.so.1.3 -o libz.so.1.3_instrument.ll
+llvm-dis libz.so.1.3_instrument.ll libz.so.1.3_instrument.ll
+
 将可执行程序与zlib的文件link然后编译成可执行文件：
 clang -S -emit-llvm -c zlib_test.c -o zlib_test.ll
 llvm-link zlib_test.ll zlib_1.3.bc -o linked.bc
@@ -67,3 +33,6 @@ llvm-dis linked.bc (编译成linked.ll, optional)
 llc -filetype=obj linked.bc -o linked.o
 clang linked.o -o linked
 ./linked
+
+将可执行程序与zlib的文件link然后编译成可执行文件(使用afl-clang-fast)：
+/home/kansx/Fuzz/AFLplusplus/afl-clang-fast compress_harness.c /home/kansx/Fuzz/APISpecFuzz/Library/zlib/zlib_1.3.ll -o compress_harness

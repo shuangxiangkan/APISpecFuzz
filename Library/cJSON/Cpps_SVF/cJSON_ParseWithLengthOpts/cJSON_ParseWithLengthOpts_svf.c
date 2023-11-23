@@ -16,8 +16,5 @@ int main() {
 	MAYALIAS(result->valuestring, value0);
 	MAYALIAS(result->string, value0);
 
-	MAYALIAS();
-
-
 	return 0;
 }

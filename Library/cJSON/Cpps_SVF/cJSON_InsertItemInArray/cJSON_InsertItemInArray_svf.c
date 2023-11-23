@@ -12,7 +12,7 @@ int main() {
 	
 	cJSON_bool result = cJSON_InsertItemInArray(array0, which1, newitem2);
 
-	MAYALIAS(array0,newitem2
+	MAYALIAS(array0,newitem2);
 
 
 	cJSON_Delete(array0);

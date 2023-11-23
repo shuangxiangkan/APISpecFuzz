@@ -13,9 +13,6 @@ int main() {
 	MAYALIAS(array0, item1);
 
 
-	MAYALIAS();
-
-
 	cJSON_Delete(array0);
 	cJSON_Delete(item1);
 	return 0;

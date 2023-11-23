@@ -6,9 +6,9 @@ extern void MAYALIAS(void*,void*);
 
 int main() {
 
-	void *object0 = strtok(buf, "\n");
+	cJSON *item0 = cJSON_CreateObject();
 	
-	 cJSON_free(object0);
+	cJSON_free(item0);
 
 
 	return 0;

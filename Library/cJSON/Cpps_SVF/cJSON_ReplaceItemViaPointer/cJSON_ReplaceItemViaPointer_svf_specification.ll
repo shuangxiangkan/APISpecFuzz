@@ -35,16 +35,11 @@ define dso_local i32 @main() #0 {
   %20 = bitcast %struct.cJSON* %19 to i8*
   call void @MAYALIAS(i8* noundef %18, i8* noundef %20)
   %21 = load %struct.cJSON*, %struct.cJSON** %2, align 8
-  %22 = bitcast %struct.cJSON* %21 to i8*
-  %23 = load %struct.cJSON*, %struct.cJSON** %3, align 8
-  %24 = bitcast %struct.cJSON* %23 to i8*
-  call void @MAYALIAS(i8* noundef %22, i8* noundef %24)
-  %25 = load %struct.cJSON*, %struct.cJSON** %2, align 8
-  call void @cJSON_Delete(%struct.cJSON* noundef %25)
-  %26 = load %struct.cJSON*, %struct.cJSON** %3, align 8
-  call void @cJSON_Delete(%struct.cJSON* noundef %26)
-  %27 = load %struct.cJSON*, %struct.cJSON** %4, align 8
-  call void @cJSON_Delete(%struct.cJSON* noundef %27)
+  call void @cJSON_Delete(%struct.cJSON* noundef %21)
+  %22 = load %struct.cJSON*, %struct.cJSON** %3, align 8
+  call void @cJSON_Delete(%struct.cJSON* noundef %22)
+  %23 = load %struct.cJSON*, %struct.cJSON** %4, align 8
+  call void @cJSON_Delete(%struct.cJSON* noundef %23)
   ret i32 0
 }
 

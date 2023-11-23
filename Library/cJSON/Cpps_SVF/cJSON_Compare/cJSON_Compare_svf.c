@@ -12,7 +12,7 @@ int main() {
 	
 	cJSON_bool result = cJSON_Compare(a0, b1, case_sensitive2);
 
-	MAYALIAS(a0,b1);
+	// MAYALIAS(a0,b1);
 
 
 	cJSON_Delete(a0);

@@ -1,5 +1,14 @@
 #include "cJSON.h"
 
+#define NULL ((void *)0)
+#define STATIC_OBJECT malloc(10)
+
+__attribute__((annotate("ALLOC_RET")))
+CJSON_PUBLIC(cJSON *) cJSON_CreateObject(void)
+{
+    return STATIC_OBJECT;
+}
+
 CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToObjectCS(cJSON* object0,  const char* string0, cJSON* item0)
 {
 	object0 -> valuestring = string0;
@@ -181,9 +190,8 @@ CJSON_PUBLIC(char *) cJSON_GetStringValue(const cJSON * const item)
 
 CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemViaPointer(cJSON *  parent, cJSON *  item, cJSON * replacement)
 {
-	parent = item;
-	parent = replacement;
-	item = replacement;
+	replacement = parent;
+	replacement = item;
 	return 0;
 }
 
@@ -217,8 +225,6 @@ CJSON_PUBLIC(cJSON*) cJSON_AddTrueToObject(cJSON * const object, const char * co
 
 CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemInObjectCaseSensitive(cJSON *object,const char *string,cJSON *newitem)
 {
-	object -> string = string;
-	object -> valuestring = string;
 	object = newitem;
 	return 0;
 }

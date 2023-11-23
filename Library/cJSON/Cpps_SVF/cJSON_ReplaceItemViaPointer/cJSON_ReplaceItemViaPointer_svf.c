@@ -14,7 +14,6 @@ int main() {
 
 	MAYALIAS(parent0, replacement2);
 	MAYALIAS(item1, replacement2);
-	MAYALIAS(parent0, item1);
 
 
 

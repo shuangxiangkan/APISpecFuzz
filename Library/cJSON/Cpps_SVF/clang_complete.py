@@ -30,7 +30,7 @@ def compile_ll_files_in_directory(directory):
             if filename.endswith(".ll"):
                 source_file = os.path.join(root, filename)
                 output_file = os.path.join(root, os.path.splitext(filename)[0] + "_complete.ll")
-                compile_command = f"llvm-link {source_file} {cJSON_IR_path} -o {output_file}"
+                compile_command = f"llvm-link {source_file} {cJSON_IR_path} -o {output_file} && llvm-dis {output_file} -o {output_file}"
                 # compile_command = f"{afl_clang_fast_path} -w {source_file} -o {output_file}"
 
                 try:
