@@ -1,0 +1,6 @@
+libmagic中含有18个供外界调用的函数
+进行fuzz的函数是4个
+生成spec的函数是1个
+
+libmagic文件的llvm IR编译非常麻烦，属于file的一部分，而且make完之后，也不是在同一个.o文件中，是分开的，如果使用libmagic.so来编译的话，会出现很多问题。
+而且libmagic.so放在隐藏文件下，在/home/kansx/Fuzz/APISpecFuzz/Library/libmagic/file-5.45/src/.libs/下, 而且最后也没搞得很好。

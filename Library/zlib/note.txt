@@ -3,7 +3,7 @@
 zlib.h中有111个函数
 进行fuzz的函数有31个
 fuzz出来的函数有specification的函数有8个
-
+SVF静态分析比Fuzz多出来的函数有2个：deflateCopy和inflateCopy
 
 官方文档：https://www.zlib.net/manual.html
 
