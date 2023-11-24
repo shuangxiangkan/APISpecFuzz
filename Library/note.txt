@@ -2,10 +2,43 @@ cJson
 Melon
 zlib
 libmagic
+Miniz (这个虽然是单文件，但是函数太多了，不好测试， harness非常难写)
+gifdec (这个也是单文件，但是函数太少了，只有6个，放在paper中会不会太少了)
 libpng(待定)
 libjpeg(待定)
 libgcrypt
+Jansson
+SQLite
+https://github.com/tronkko/dirent/blob/master/include/dirent.h
 
+
+单文件的 C 第三方库因其简单性和易于集成的特点，在各种项目中非常受欢迎。以下是一些常用的单文件 C 第三方库：
+
+stb 库系列：
+
+stb_image.h：用于图像加载和解码，支持多种格式，如 JPEG、PNG、BMP、TGA 等。
+stb_truetype.h：用于 TrueType 字体渲染。
+stb_vorbis.c：用于解码 Ogg Vorbis 音频文件。
+miniz.c：之前提到的，一个提供 zlib/DEFLATE 压缩和解压缩的轻量级库。
+
+sqlite3.c：SQLite 数据库的完整嵌入式数据库引擎实现。
+
+tinycthread.h：提供简单、跨平台的线程 API，是 POSIX 线程（pthreads）API 的轻量级实现。
+
+cJSON.c：用于处理 JSON 数据的轻量级库，易于集成和使用。
+
+parson.c：另一个用于解析和生成 JSON 数据的轻量级库。
+
+picotest.c：一个极简的单文件单元测试框架。
+
+gifdec.c：用于解码 GIF 文件的小型库。
+
+inih（ini.h 和 ini.c）：用于读取和解析 .ini 配置文件的简单库。
+
+sokol 库系列：
+
+sokol_app.h：用于创建窗口、处理输入和其他应用程序相关的任务。
+sokol_gfx.h：提供简单的跨平台的 3D 图形 API。
 
 
 related papers:

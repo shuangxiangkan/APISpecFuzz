@@ -1,0 +1,11 @@
+utf8valid_harness
+utf8cspn_harness
+utf8dup_harness
+utf8ncasecmp_harness
+utf8casecmp_harness
+utf8codepoint_harness
+utf8spn_harness
+utf8ncmp_harness
+utf8cmp_harness
+utf8rcodepoint_harness
+utf8catcodepoint_harness
