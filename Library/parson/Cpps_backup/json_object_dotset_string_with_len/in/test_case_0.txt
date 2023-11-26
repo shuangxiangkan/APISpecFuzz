@@ -1,0 +1,4 @@
+{"name": "John", "age": 30, "city": "New York", "hobbies": ["reading", "hiking", "swimming"], "address": {"street": "123 Main St", "zip": "10001"}}
+age
+name
+4

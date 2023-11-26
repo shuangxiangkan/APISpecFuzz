@@ -1,0 +1,2 @@
+[{"name": "John", "age": 30, "isMarried": false, "hobbies": ["Reading", "Cycling"]}, {"name": "Jane Smith", "age": 28, "isMarried": true, "hobbies": ["Painting", "Dancing"], "children": [{"name": "Alice", "age": 5}, {"name": "Bob", "age": 3}]}]
+{"name": "John", "age": 30, "city": "New York", "hobbies": ["reading", "hiking", "swimming"], "address": {"street": "123 Main St", "zip": "10001"}}

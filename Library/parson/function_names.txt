@@ -1,0 +1,9 @@
+json_parse_file
+json_parse_file_with_comments
+json_parse_string
+json_parse_string_with_comments
+json_serialize_to_buffer
+json_serialize_to_file_pretty
+json_serialize_to_string_pretty
+json_value_equals
+json_validate

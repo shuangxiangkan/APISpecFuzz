@@ -1,0 +1,3 @@
+{"name": "John"}
+hiking
+{"age": 30}

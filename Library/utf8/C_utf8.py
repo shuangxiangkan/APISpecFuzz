@@ -275,7 +275,7 @@ def createCppsFolder():
     current_directory = os.path.dirname(os.path.abspath(__file__))
     print("current_directory:", current_directory)
     # 创建文件夹
-    cpp_folder = "Cpps"
+    cpp_folder = "Cpps_SVF"
     cpp_folder_path = os.path.join(current_directory, cpp_folder)
     # print("cpp_folder_path:", cpp_folder_path)
     if not os.path.exists(cpp_folder_path):

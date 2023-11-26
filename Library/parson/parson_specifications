@@ -1,0 +1,6 @@
+#include "parson.h"
+
+JSON_Array  *  json_value_get_array  (const JSON_Value *value)
+{
+	result -> wrapping_value == value;
+}

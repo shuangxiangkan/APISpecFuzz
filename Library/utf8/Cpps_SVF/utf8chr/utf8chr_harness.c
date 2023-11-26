@@ -1,0 +1,48 @@
+#include "utf8.h"
+#include <string.h>
+#include <stdio.h>
+
+void SpecFileGeneration(const char *specification, const char *fileName, const char *funSignature)
+{
+	FILE *file = fopen(fileName, "r");
+	if (file) {
+		fclose(file);
+		return;
+	}
+
+	file = fopen(fileName, "a");
+	if (file) {
+		fprintf(file, "%s\n", funSignature);
+		fprintf(file, "{\n");
+		fprintf(file, "	%s\n", specification);
+		fprintf(file, "}\n");
+		fclose(file);
+	}
+}
+
+int main() {
+
+	char buf[1024];
+	while (__AFL_LOOP(1000)) 
+	{
+		memset(buf, 0, sizeof(buf));
+		if (read(0, buf, sizeof(buf)) < 0) {
+			return 1;
+		}
+
+		char *src = strtok(buf, "\n");
+		int chr;
+		sscanf(strtok(NULL, "\n"), "%d", &chr);
+
+	
+		utf8_int8_t* result = utf8chr(src, chr);
+		const char *funSignature = "utf8_int8_t* utf8chr(utf8_int8_t* src, utf8_int32_t chr)";
+		
+		if(result == src)
+		{
+			SpecFileGeneration("return src;", "utf8chr_0.cpp", funSignature);
+		}
+	}
+
+	return 0;
+}

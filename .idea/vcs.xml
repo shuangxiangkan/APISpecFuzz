@@ -3,6 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Library/dirent/dirent" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Library/parson/parson" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Library/utf8/utf8-1.0" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/pycparser" vcs="Git" />
   </component>

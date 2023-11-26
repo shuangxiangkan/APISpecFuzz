@@ -10,7 +10,7 @@ def delete_default_folders(directory):
     # 遍历目录树
     for root, dirs, files in os.walk(directory, topdown=False):
         for name in dirs:
-            if name == "default":
+            if name == "out":
                 full_path = os.path.join(root, name)
                 try:
                     shutil.rmtree(full_path)
@@ -19,5 +19,5 @@ def delete_default_folders(directory):
                     print(f"删除文件夹 {full_path} 时出错: {e}")
 
 # 使用示例
-directory_to_search = '/home/kansx/Fuzz/APISpecFuzz/Library/utf8/Cpps_backup'  # 替换为您要搜索的目录的路径
+directory_to_search = '/home/kansx/Fuzz/APISpecFuzz/Library/utf8/Cpps_SVF'  # 替换为您要搜索的目录的路径
 delete_default_folders(directory_to_search)
