@@ -1,0 +1,1 @@
+/usr/local/bin/wllvm -rdynamic CMakeFiles/pngunknown.dir/contrib/libtests/pngunknown.c.o -o pngunknown  -Wl,-rpath,/home/kansx/Downloads/libpng-1.6.40 libpng16.so.16.40.0 -lz -lm 

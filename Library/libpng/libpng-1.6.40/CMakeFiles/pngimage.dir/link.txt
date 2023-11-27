@@ -1,0 +1,1 @@
+/usr/local/bin/wllvm -rdynamic CMakeFiles/pngimage.dir/contrib/libtests/pngimage.c.o -o pngimage  -Wl,-rpath,/home/kansx/Downloads/libpng-1.6.40 libpng16.so.16.40.0 -lz -lm 

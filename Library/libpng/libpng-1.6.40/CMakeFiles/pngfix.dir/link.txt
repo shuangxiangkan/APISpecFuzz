@@ -1,0 +1,1 @@
+/usr/local/bin/wllvm -rdynamic CMakeFiles/pngfix.dir/contrib/tools/pngfix.c.o -o pngfix  -Wl,-rpath,/home/kansx/Downloads/libpng-1.6.40: libpng16.so.16.40.0 -lz -lm 
