@@ -1,0 +1,14 @@
+jansson.h中有95个API,
+有几个后面会被注释掉
+
+
+下面几个函数需要手写harness
+------------------------------------------
+json_pack
+json_pack_ex
+json_vpack_ex
+json_unpack
+json_unpack_ex
+json_vunpack_ex
+json_sprintf
+json_vsprintf

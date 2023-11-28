@@ -1,0 +1,4 @@
+{"name": "John"}
+street
+0
+{"age": 30}

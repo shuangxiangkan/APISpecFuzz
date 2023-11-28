@@ -2,7 +2,7 @@ cJson
 Melon
 zlib
 libmagic
-Miniz (这个虽然是单文件，但是函数太多了，不好测试， harness非常难写)
+Miniz
 gifdec (这个也是单文件，但是函数太少了，只有6个，放在paper中会不会太少了)
 libpng(待定)
 libjpeg(待定)
@@ -10,6 +10,7 @@ libgcrypt
 Jansson
 SQLite
 https://github.com/tronkko/dirent/blob/master/include/dirent.h
+PCRE
 
 
 单文件的 C 第三方库因其简单性和易于集成的特点，在各种项目中非常受欢迎。以下是一些常用的单文件 C 第三方库：
