@@ -58,3 +58,8 @@ Modelgen: Mining Explicit Information Flow Specifications from Concrete Executio
 实验三：
 判断我们在AFL++中的新设计是否对于提升生成specifications有帮助，比如不加入新的设计，
 只用原来的AFL++，看生成的specifications的数量是否有所减少，或者生成同样数量的specifications，时间是否会增加
+
+除了判断是否指向同一个地址，还判断是否内容相同，如果内容相同
+
+memcmp 对整个 LodePNGInfo 结构进行字节级比较可能并不总是能反映出两个结构是否“相等”。
+LodePNGInfo 结构可能包含指针，这些指针在两个结构之间即使在内容上相同，也可能指向不同的内存地址。因此，即使数据内容相同，memcmp 也可能返回不等的结果。

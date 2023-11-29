@@ -1,0 +1,11 @@
+lodepng_decode_memory
+lodepng_encode32
+lodepng_encode24
+lodepng_encode_file
+lodepng_encode32_file
+lodepng_encode24_file
+lodepng_color_mode_copy
+lodepng_decode_file
+lodepng_decode32_file
+lodepng_decode24_file
+lodepng_add_text
