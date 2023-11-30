@@ -43,31 +43,31 @@ int main(int argc, char *argv[])
         }
 
         // Start iterating over the chunks, beginning after the 8-byte PNG signature
-        unsigned char* chunk = buffer + 8; // Skip 8-byte PNG signature
-        unsigned char* end = buffer + buffersize;
+        const unsigned char* chunk = buffer + 8; // Skip 8-byte PNG signature
+        const unsigned char* end = buffer + buffersize;
 
-        unsigned char* next_chunk = lodepng_chunk_next(chunk, end);
+        const unsigned char* next_chunk = lodepng_chunk_next_const(chunk, end);
 
-        const char *funSignature = "unsigned char* lodepng_chunk_next(unsigned char* chunk, unsigned char* end)";
+        const char *funSignature = "const unsigned char* lodepng_chunk_next_const(const unsigned char* chunk, const unsigned char* end)";
 
         if (next_chunk != NULL && chunk != NULL && next_chunk == chunk) {
-            SpecFileGeneration("next_chunk == chunk;", "lodepng_chunk_next_0.cpp", funSignature);
+            SpecFileGeneration("next_chunk == chunk;", "lodepng_chunk_next_const_0.cpp", funSignature);
         }
         if (next_chunk != NULL && end != NULL && next_chunk == end) {
-            SpecFileGeneration("next_chunk == end;", "lodepng_chunk_next_1.cpp", funSignature);
+            SpecFileGeneration("next_chunk == end;", "lodepng_chunk_next_const_1.cpp", funSignature);
         }
         if (chunk != NULL && end != NULL && chunk == end) {
-            SpecFileGeneration("chunk == end;", "lodepng_chunk_next_2.cpp", funSignature);
+            SpecFileGeneration("chunk == end;", "lodepng_chunk_next_const_2.cpp", funSignature);
         }
 
         if (next_chunk != NULL && chunk != NULL && strcmp((char*)next_chunk, (char*)chunk) == 0) {
-            SpecFileGeneration("strcmp((char*)next_chunk, (char*)chunk);", "lodepng_chunk_next_3.cpp", funSignature);
+            SpecFileGeneration("strcmp((char*)next_chunk, (char*)chunk);", "lodepng_chunk_next_const_3.cpp", funSignature);
         }
         if (next_chunk != NULL && end != NULL && strcmp((char*)next_chunk, (char*)end) == 0) {
-            SpecFileGeneration("strcmp((char*)next_chunk, (char*)end);", "lodepng_chunk_next_4.cpp", funSignature);
+            SpecFileGeneration("strcmp((char*)next_chunk, (char*)end);", "lodepng_chunk_next_const_4.cpp", funSignature);
         }
         if (chunk != NULL && end != NULL && strcmp((char*)chunk, (char*)end) == 0) {
-            SpecFileGeneration("strcmp((char*)chunk, (char*)end);", "lodepng_chunk_next_5.cpp", funSignature);
+            SpecFileGeneration("strcmp((char*)chunk, (char*)end);", "lodepng_chunk_next_const_5.cpp", funSignature);
         }
         // Clean up
         free(buffer);

@@ -1,3 +1,1 @@
-有几个函数可能需要特殊处理：比如函数名带copy的
-lodepng_zlib_decompress
-lodepng_zlib_compress
+一共有74个API，其中有13个API有specifications

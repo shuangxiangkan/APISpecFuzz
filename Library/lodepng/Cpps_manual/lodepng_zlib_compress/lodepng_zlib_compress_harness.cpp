@@ -45,10 +45,12 @@ int main() {
         size_t output_size = 0;
 
         // Compression settings: using default settings
-        const LodePNGCompressSettings* settings = NULL;
+        // 压缩设置
+        LodePNGCompressSettings settings;
+        lodepng_compress_settings_init(&settings);
 
         // Compress data
-        unsigned error = lodepng_zlib_compress(&output_data, &output_size, (const unsigned char*)input_data, input_size, settings);
+        unsigned error = lodepng_zlib_compress(&output_data, &output_size, (const unsigned char*)input_data, input_size, &settings);
         if (error) {
             fprintf(stderr, "==========================Error compressing data: %s\n", lodepng_error_text(error));
         } else {
@@ -58,13 +60,13 @@ int main() {
 
         const char *funSignature = "unsigned lodepng_zlib_compress(unsigned char** out, size_t* outsize, const unsigned char* in, size_t insize,  const LodePNGCompressSettings* settings);";
 
-        // if (output_data != NULL && input_data != NULL && (void *)output_data == (void *)input_data) {
-        //     SpecFileGeneration("output_data = input_data;", "lodepng_zlib_compress_0.cpp", funSignature);
-        // }
+        if (output_data != NULL && input_data != NULL && (void *)output_data == (void *)input_data) {
+            SpecFileGeneration("output_data = input_data;", "lodepng_zlib_compress_0.cpp", funSignature);
+        }
 
-        // if (output_data != NULL && input_data != NULL && memcmp(output_data, input_data, input_size) == 0) {
-        //     SpecFileGeneration("memcmp(output_data, input_data, input_size);", "lodepng_zlib_compress_1.cpp", funSignature);
-        // }
+        if (output_data != NULL && input_data != NULL && memcmp(output_data, input_data, output_size) == 0) {
+            SpecFileGeneration("memcmp(output_data, input_data, output_size);", "lodepng_zlib_compress_1.cpp", funSignature);
+        }
 
         free(output_data);
     }
